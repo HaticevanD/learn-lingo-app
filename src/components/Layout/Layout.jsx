@@ -1,11 +1,15 @@
 import { Outlet } from "react-router-dom";
 
-function Layout() {
+const Layout = () => {
   return (
-    <div>
-      <Outlet />
-    </div>
+    <>
+      <header>Header</header>
+
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
-}
+};
 
 export default Layout;

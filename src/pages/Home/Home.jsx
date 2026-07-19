@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import heroImage from "../../assets/hero-image.png";
+import hero1x from "../../assets/hero@1x.jpg";
+import hero2x from "../../assets/hero@2x.jpg";
 import styles from "./Home.module.css";
 
 const statistics = [
@@ -45,7 +46,8 @@ function Home() {
 
           <div className={styles.heroImageWrapper}>
             <img
-              src={heroImage}
+              src={hero1x}
+              srcSet={`${hero1x} 1x, ${hero2x} 2x`}
               alt="Language tutor using a laptop"
               className={styles.heroImage}
             />

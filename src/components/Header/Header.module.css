@@ -73,6 +73,11 @@
   line-height: 1;
 }
 
+.loginButton:hover,
+.loginButton:focus {
+  opacity: 0.7;
+}
+
 .registrationButton {
   padding: 9px 12px;
 
@@ -88,11 +93,6 @@
   transition:
     color var(--transition),
     background-color var(--transition);
-}
-
-.loginButton:hover,
-.loginButton:focus {
-  opacity: 0.7;
 }
 
 .registrationButton:hover,

@@ -1,0 +1,50 @@
+.button {
+  display: block;
+
+  width: 100%;
+  min-height: 56px;
+  margin: 32px auto 0;
+  padding: 14px 24px;
+
+  color: var(--color-text);
+  background-color: var(--color-accent);
+
+  border: none;
+  border-radius: 12px;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition),
+    transform var(--transition);
+}
+
+.button:hover,
+.button:focus {
+  background-color: var(--color-accent-hover);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    width: auto;
+    min-width: 180px;
+    margin-top: 40px;
+  }
+}
+
+@media screen and (min-width: 1158px) {
+  .button {
+    min-width: 183px;
+    min-height: 60px;
+
+    font-size: 18px;
+  }
+}

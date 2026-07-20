@@ -21,6 +21,10 @@ function Header() {
           <NavLink to="/teachers" className={getNavLinkClass}>
             Teachers
           </NavLink>
+
+          <NavLink to="/favorites" className={getNavLinkClass}>
+            Favorites
+          </NavLink>
         </nav>
 
         <div className={styles.authActions}>

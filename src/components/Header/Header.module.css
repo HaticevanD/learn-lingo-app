@@ -1,44 +1,47 @@
 .header {
   width: 100%;
   padding: 16px 0;
+
   background-color: var(--color-white);
 }
 
 .container {
-  width: calc(100% - 32px);
-  margin: 0 auto;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+
+  width: calc(100% - 32px);
+  margin: 0 auto;
 }
+
 .logo,
 .navLink {
   color: var(--color-black);
   text-decoration: none;
 }
+
 .logo {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   gap: 8px;
 
-  flex-shrink: 0;
-
   color: var(--color-black);
+
   font-size: 16px;
   font-weight: 500;
   line-height: 1.2;
 }
 
 .logoIcon {
+  flex-shrink: 0;
+
   width: 22px;
   height: 22px;
 
-  flex-shrink: 0;
-
-  border-radius: 50%;
   background-color: var(--color-yellow);
+  border-radius: 50%;
 }
 
 .navigation {
@@ -56,26 +59,37 @@
   align-items: center;
   gap: 5px;
 
+  padding: 0;
+
   color: var(--color-black);
   background-color: transparent;
+
   border: none;
 
   font-size: 12px;
   font-weight: 700;
   line-height: 1.25;
 
+  cursor: pointer;
+
   transition: opacity var(--transition);
 }
 
 .loginIcon {
   color: var(--color-yellow);
+
   font-size: 16px;
   line-height: 1;
 }
 
 .loginButton:hover,
-.loginButton:focus {
+.loginButton:focus-visible {
   opacity: 0.7;
+}
+
+.loginButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .registrationButton {
@@ -83,6 +97,7 @@
 
   color: var(--color-white);
   background-color: var(--color-black);
+
   border: 1px solid var(--color-black);
   border-radius: 10px;
 
@@ -90,15 +105,22 @@
   font-weight: 700;
   line-height: 1.25;
 
+  cursor: pointer;
+
   transition:
     color var(--transition),
     background-color var(--transition);
 }
 
 .registrationButton:hover,
-.registrationButton:focus {
+.registrationButton:focus-visible {
   color: var(--color-black);
   background-color: var(--color-white);
+}
+
+.registrationButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 @media screen and (min-width: 768px) {
@@ -107,14 +129,16 @@
   }
 
   .container {
-    width: calc(100% - 64px);
-
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+
+    width: calc(100% - 64px);
   }
 
   .logo {
     justify-self: start;
+
     font-size: 18px;
   }
 
@@ -124,30 +148,38 @@
   }
 
   .navigation {
-    justify-self: center;
-
     display: flex;
     align-items: center;
-    gap: 28px;
+    justify-self: center;
+    gap: 20px;
   }
 
   .navLink {
     padding: 6px 0;
 
     color: var(--color-black);
+
     font-size: 14px;
     font-weight: 400;
     line-height: 1.25;
 
-    transition: opacity var(--transition);
+    transition:
+      color var(--transition),
+      opacity var(--transition);
   }
 
   .navLink:hover,
-  .navLink:focus {
+  .navLink:focus-visible {
     opacity: 0.7;
   }
 
+  .navLink:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
   .activeLink {
+    color: var(--color-accent);
     font-weight: 500;
   }
 
@@ -177,6 +209,10 @@
     font-size: 20px;
   }
 
+  .navigation {
+    gap: 28px;
+  }
+
   .loginButton {
     font-size: 16px;
   }
@@ -186,6 +222,7 @@
     padding: 14px 39px;
 
     border-radius: 12px;
+
     font-size: 16px;
   }
 }

@@ -1,7 +1,12 @@
 import { useState } from "react";
 import styles from "./TeacherCard.module.css";
 
-const TeacherCard = ({ teacher, isFavorite = false, onToggleFavorite }) => {
+const TeacherCard = ({
+  teacher,
+  isFavorite = false,
+  onToggleFavorite,
+  onBookLesson,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const {
@@ -21,6 +26,18 @@ const TeacherCard = ({ teacher, isFavorite = false, onToggleFavorite }) => {
 
   const handleToggleDetails = () => {
     setIsExpanded((currentValue) => !currentValue);
+  };
+
+  const handleFavoriteClick = () => {
+    const wasToggled = onToggleFavorite?.();
+
+    if (wasToggled === false) {
+      alert("Please log in to add teachers to your favorites.");
+    }
+  };
+
+  const handleBookLesson = () => {
+    onBookLesson?.();
   };
 
   return (
@@ -44,6 +61,7 @@ const TeacherCard = ({ teacher, isFavorite = false, onToggleFavorite }) => {
         <div className={styles.topRow}>
           <div>
             <p className={styles.role}>Languages</p>
+
             <h2 className={styles.name}>
               {name} {surname}
             </h2>
@@ -54,7 +72,7 @@ const TeacherCard = ({ teacher, isFavorite = false, onToggleFavorite }) => {
               isFavorite ? styles.favoriteActive : ""
             }`}
             type="button"
-            onClick={onToggleFavorite}
+            onClick={handleFavoriteClick}
             aria-pressed={isFavorite}
             aria-label={
               isFavorite
@@ -153,7 +171,11 @@ const TeacherCard = ({ teacher, isFavorite = false, onToggleFavorite }) => {
         </ul>
 
         {isExpanded && (
-          <button className={styles.bookButton} type="button">
+          <button
+            className={styles.bookButton}
+            type="button"
+            onClick={handleBookLesson}
+          >
             Book trial lesson
           </button>
         )}

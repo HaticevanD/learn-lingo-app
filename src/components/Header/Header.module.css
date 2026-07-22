@@ -123,6 +123,52 @@
   outline-offset: 3px;
 }
 
+.userName {
+  display: none;
+
+  max-width: 160px;
+  overflow: hidden;
+
+  color: var(--color-secondary-text);
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logoutButton {
+  padding: 9px 12px;
+
+  color: var(--color-white);
+  background-color: var(--color-black);
+  border: 1px solid var(--color-black);
+  border-radius: 10px;
+
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+
+  cursor: pointer;
+
+  transition:
+    color var(--transition),
+    background-color var(--transition);
+}
+
+.logoutButton:hover,
+.logoutButton:focus-visible {
+  color: var(--color-black);
+  background-color: var(--color-white);
+}
+
+.logoutButton:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
 @media screen and (min-width: 768px) {
   .header {
     padding: 20px 0;
@@ -198,6 +244,16 @@
 
     font-size: 13px;
   }
+
+  .userName {
+    display: block;
+  }
+
+  .logoutButton {
+    padding: 11px 20px;
+
+    font-size: 13px;
+  }
 }
 
 @media screen and (min-width: 1158px) {
@@ -220,6 +276,15 @@
   .registrationButton {
     min-width: 166px;
     padding: 14px 39px;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+  }
+
+  .logoutButton {
+    min-width: 120px;
+    padding: 14px 24px;
 
     border-radius: 12px;
 

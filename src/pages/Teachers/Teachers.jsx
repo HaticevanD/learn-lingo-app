@@ -1,14 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
+import { useOutletContext } from "react-router-dom";
+
 import { useTeachers } from "../../hooks/useTeachers";
 import { useFavorites } from "../../hooks/useFavorites";
 import TeacherFilters from "../../components/TeacherFilters/TeacherFilters";
 import TeacherList from "../../components/TeacherList/TeacherList";
 import LoadMoreButton from "../../components/LoadMoreButton/LoadMoreButton";
+
 import styles from "./Teachers.module.css";
 
 const TEACHERS_PER_PAGE = 4;
 
 const Teachers = () => {
+  const { openTrialLessonModal } = useOutletContext();
+
   const { teachers, isLoading, error } = useTeachers();
   const { favoriteIds: favorites, toggleFavorite } = useFavorites();
 
@@ -105,6 +110,7 @@ const Teachers = () => {
           teachers={visibleTeachers}
           favorites={favorites}
           onToggleFavorite={toggleFavorite}
+          onBookLesson={openTrialLessonModal}
         />
 
         {hasMoreTeachers && <LoadMoreButton onClick={handleLoadMore} />}

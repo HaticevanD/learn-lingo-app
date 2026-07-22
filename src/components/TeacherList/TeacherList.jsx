@@ -1,7 +1,12 @@
 import TeacherCard from "../TeacherCard/TeacherCard";
 import styles from "./TeacherList.module.css";
 
-const TeacherList = ({ teachers, favorites = [], onToggleFavorite }) => {
+const TeacherList = ({
+  teachers,
+  favorites = [],
+  onToggleFavorite,
+  onBookLesson,
+}) => {
   if (!teachers.length) {
     return <p className={styles.emptyMessage}>No teachers found.</p>;
   }
@@ -14,6 +19,7 @@ const TeacherList = ({ teachers, favorites = [], onToggleFavorite }) => {
             teacher={teacher}
             isFavorite={favorites.includes(teacher.id)}
             onToggleFavorite={() => onToggleFavorite?.(teacher.id)}
+            onBookLesson={() => onBookLesson?.(teacher)}
           />
         </li>
       ))}

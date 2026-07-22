@@ -1,11 +1,15 @@
+import { useOutletContext } from "react-router-dom";
+
 import { useTeachers } from "../../hooks/useTeachers";
 import { useFavorites } from "../../hooks/useFavorites";
 import TeacherList from "../../components/TeacherList/TeacherList";
+
 import styles from "./Favorites.module.css";
 
 const Favorites = () => {
-  const { teachers, isLoading, error } = useTeachers();
+  const { openTrialLessonModal } = useOutletContext();
 
+  const { teachers, isLoading, error } = useTeachers();
   const { favoriteIds: favorites, toggleFavorite } = useFavorites();
 
   const favoriteTeachers = teachers.filter((teacher) =>
@@ -46,6 +50,7 @@ const Favorites = () => {
             teachers={favoriteTeachers}
             favorites={favorites}
             onToggleFavorite={toggleFavorite}
+            onBookLesson={openTrialLessonModal}
           />
         )}
       </div>

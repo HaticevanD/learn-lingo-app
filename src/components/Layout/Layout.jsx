@@ -41,6 +41,8 @@ function Layout() {
       <main className={styles.main}>
         <Outlet
           context={{
+            openLoginModal,
+            openRegistrationModal,
             openTrialLessonModal,
           }}
         />

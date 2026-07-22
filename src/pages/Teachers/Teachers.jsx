@@ -1,95 +1,120 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 import { useTeachers } from "../../hooks/useTeachers";
+import { usePaginatedTeachers } from "../../hooks/usePaginatedTeachers";
 import { useFavorites } from "../../hooks/useFavorites";
+import { useAuth } from "../../hooks/useAuth";
+
 import TeacherFilters from "../../components/TeacherFilters/TeacherFilters";
 import TeacherList from "../../components/TeacherList/TeacherList";
 import LoadMoreButton from "../../components/LoadMoreButton/LoadMoreButton";
 
 import styles from "./Teachers.module.css";
 
-const TEACHERS_PER_PAGE = 4;
-
 const Teachers = () => {
-  const { openTrialLessonModal } = useOutletContext();
+  const outletContext = useOutletContext();
 
-  const { teachers, isLoading, error } = useTeachers();
-  const { favoriteIds: favorites, toggleFavorite } = useFavorites();
+  const openLoginModal = outletContext?.openLoginModal;
+
+  const openTrialLessonModal = outletContext?.openTrialLessonModal;
+
+  const { user } = useAuth();
+
+  const {
+    teachers: allTeachers,
+    isLoading: isCatalogLoading,
+    error: catalogError,
+  } = useTeachers();
+
+  const { favoriteIds = [], toggleFavorite } = useFavorites();
 
   const [selectedLanguage, setSelectedLanguage] = useState("");
+
   const [selectedLevel, setSelectedLevel] = useState("");
+
   const [selectedPrice, setSelectedPrice] = useState("");
-  const [visibleCount, setVisibleCount] = useState(TEACHERS_PER_PAGE);
 
   const availableLanguages = useMemo(() => {
-    const languages = teachers.flatMap((teacher) => teacher.languages ?? []);
+    const languages = allTeachers.flatMap((teacher) => teacher.languages ?? []);
 
-    return [...new Set(languages)].sort();
-  }, [teachers]);
+    return Array.from(new Set(languages)).sort();
+  }, [allTeachers]);
 
   const availableLevels = useMemo(() => {
-    const levels = teachers.flatMap((teacher) => teacher.levels ?? []);
+    const levels = allTeachers.flatMap((teacher) => teacher.levels ?? []);
 
-    return [...new Set(levels)].sort();
-  }, [teachers]);
+    return Array.from(new Set(levels)).sort();
+  }, [allTeachers]);
 
   const availablePrices = useMemo(() => {
-    const prices = teachers
-      .map((teacher) => teacher.price_per_hour)
-      .filter((price) => price !== undefined);
+    const prices = allTeachers
+      .map((teacher) => Number(teacher.price_per_hour))
+      .filter((price) => Number.isFinite(price));
 
-    return [...new Set(prices)].sort(
+    return Array.from(new Set(prices)).sort(
       (firstPrice, secondPrice) => firstPrice - secondPrice,
     );
-  }, [teachers]);
+  }, [allTeachers]);
 
-  const filteredTeachers = useMemo(() => {
-    return teachers.filter((teacher) => {
-      const matchesLanguage =
-        !selectedLanguage || teacher.languages?.includes(selectedLanguage);
+  const filteredTeacherIds = useMemo(() => {
+    return allTeachers
+      .filter((teacher) => {
+        const teacherLanguages = teacher.languages ?? [];
 
-      const matchesLevel =
-        !selectedLevel || teacher.levels?.includes(selectedLevel);
+        const teacherLevels = teacher.levels ?? [];
 
-      const matchesPrice =
-        !selectedPrice || teacher.price_per_hour === Number(selectedPrice);
+        const teacherPrice = Number(teacher.price_per_hour);
 
-      return matchesLanguage && matchesLevel && matchesPrice;
-    });
-  }, [teachers, selectedLanguage, selectedLevel, selectedPrice]);
+        const matchesLanguage =
+          selectedLanguage === "" ||
+          teacherLanguages.includes(selectedLanguage);
 
-  useEffect(() => {
-    setVisibleCount(TEACHERS_PER_PAGE);
-  }, [selectedLanguage, selectedLevel, selectedPrice]);
+        const matchesLevel =
+          selectedLevel === "" || teacherLevels.includes(selectedLevel);
 
-  const visibleTeachers = filteredTeachers.slice(0, visibleCount);
+        const matchesPrice =
+          selectedPrice === "" || teacherPrice === Number(selectedPrice);
 
-  const hasMoreTeachers = visibleCount < filteredTeachers.length;
+        return matchesLanguage && matchesLevel && matchesPrice;
+      })
+      .map((teacher) => String(teacher.id));
+  }, [allTeachers, selectedLanguage, selectedLevel, selectedPrice]);
 
-  const handleLoadMore = () => {
-    setVisibleCount((currentCount) => currentCount + TEACHERS_PER_PAGE);
+  const {
+    teachers,
+    isLoading,
+    isLoadingMore,
+    error: paginationError,
+    hasMoreTeachers,
+    loadMoreTeachers,
+  } = usePaginatedTeachers(filteredTeacherIds);
+
+  const normalizedFavorites = useMemo(() => {
+    return favoriteIds.map(String);
+  }, [favoriteIds]);
+
+  const handleToggleFavorite = (teacherId) => {
+    if (!user) {
+      if (typeof openLoginModal === "function") {
+        openLoginModal();
+      }
+
+      return;
+    }
+
+    toggleFavorite(String(teacherId));
   };
 
-  if (isLoading) {
-    return (
-      <main className={styles.page}>
-        <div className={styles.container}>
-          <p className={styles.statusMessage}>Loading...</p>
-        </div>
-      </main>
-    );
-  }
+  const handleBookLesson = (teacher) => {
+    if (typeof openTrialLessonModal === "function") {
+      openTrialLessonModal(teacher);
+    }
+  };
 
-  if (error) {
-    return (
-      <main className={styles.page}>
-        <div className={styles.container}>
-          <p className={styles.errorMessage}>Error: {error}</p>
-        </div>
-      </main>
-    );
-  }
+  const currentError = catalogError || paginationError;
+
+  const pageIsLoading = isCatalogLoading || isLoading;
 
   return (
     <main className={styles.page}>
@@ -106,14 +131,37 @@ const Teachers = () => {
           onPriceChange={setSelectedPrice}
         />
 
-        <TeacherList
-          teachers={visibleTeachers}
-          favorites={favorites}
-          onToggleFavorite={toggleFavorite}
-          onBookLesson={openTrialLessonModal}
-        />
+        {currentError && (
+          <p className={styles.errorMessage}>Error: {currentError}</p>
+        )}
 
-        {hasMoreTeachers && <LoadMoreButton onClick={handleLoadMore} />}
+        {pageIsLoading ? (
+          <p className={styles.statusMessage}>Loading...</p>
+        ) : (
+          <>
+            {teachers.length > 0 ? (
+              <TeacherList
+                teachers={teachers}
+                favorites={normalizedFavorites}
+                onToggleFavorite={handleToggleFavorite}
+                onBookLesson={handleBookLesson}
+              />
+            ) : (
+              <p className={styles.statusMessage}>No teachers found.</p>
+            )}
+
+            {hasMoreTeachers && (
+              <LoadMoreButton
+                onClick={loadMoreTeachers}
+                disabled={isLoadingMore}
+              />
+            )}
+
+            {isLoadingMore && (
+              <p className={styles.statusMessage}>Loading more teachers...</p>
+            )}
+          </>
+        )}
       </div>
     </main>
   );

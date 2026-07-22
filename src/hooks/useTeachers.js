@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { get, ref } from "firebase/database";
+
 import { database } from "../services/firebase";
 
 export const useTeachers = () => {
@@ -8,34 +9,57 @@ export const useTeachers = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let isCancelled = false;
+
     const fetchTeachers = async () => {
       try {
+        setIsLoading(true);
+        setError(null);
+
         const teachersRef = ref(database, "teachers");
         const snapshot = await get(teachersRef);
 
-        if (snapshot.exists()) {
-          const teachersData = snapshot.val();
-
-          const teachers = Object.entries(teachersData).map(
-            ([id, teacher]) => ({
-              id,
-              ...teacher,
-            }),
-          );
-
-          setTeachers(teachers);
-        } else {
-          setTeachers([]);
+        if (isCancelled) {
+          return;
         }
+
+        if (!snapshot.exists()) {
+          setTeachers([]);
+          return;
+        }
+
+        const teachersData = snapshot.val();
+
+        const teacherList = Object.entries(teachersData).map(
+          ([id, teacher]) => ({
+            id: String(id),
+            ...teacher,
+          }),
+        );
+
+        setTeachers(teacherList);
       } catch (error) {
-        setError(error.message);
+        if (!isCancelled) {
+          console.error("Teachers could not be loaded:", error);
+          setError(error.message);
+        }
       } finally {
-        setIsLoading(false);
+        if (!isCancelled) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchTeachers();
+
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
-  return { teachers, isLoading, error };
+  return {
+    teachers,
+    isLoading,
+    error,
+  };
 };

@@ -36,7 +36,7 @@ export const useFavorites = () => {
 
   const toggleFavorite = (teacherId) => {
     if (!isAuthenticated) {
-      return false;
+      return;
     }
 
     setFavoriteIds((currentFavorites) => {
@@ -46,8 +46,6 @@ export const useFavorites = () => {
 
       return [...currentFavorites, teacherId];
     });
-
-    return true;
   };
 
   return {

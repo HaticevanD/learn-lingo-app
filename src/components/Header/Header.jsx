@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { signOut } from "firebase/auth";
 
 import { useAuth } from "../../hooks/useAuth";
-import { auth } from "../../services/firebase/firebase";
+import { auth } from "../../services/firebase";
 
 import styles from "./Header.module.css";
 

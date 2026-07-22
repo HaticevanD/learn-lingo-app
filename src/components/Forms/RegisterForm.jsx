@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-import { auth } from "../../services/firebase/firebase";
+import { auth } from "../../services/firebase";
 
 const registerSchema = yup.object({
   name: yup

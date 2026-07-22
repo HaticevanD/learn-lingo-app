@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { get, ref } from "firebase/database";
-import { database } from "../services/firebase/firebase";
+import { database } from "../services/firebase";
 
 export const useTeachers = () => {
   const [teachers, setTeachers] = useState([]);

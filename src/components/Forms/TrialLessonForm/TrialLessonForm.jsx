@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-
+import { createTrialLesson } from "../../../services/trialLessons";
 import { useAuth } from "../../../hooks/useAuth";
 import styles from "./TrialLessonForm.module.css";
 
@@ -38,6 +38,8 @@ const TrialLessonForm = ({ teacher, onSuccess }) => {
   const {
     register,
     handleSubmit,
+    setError,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(trialLessonSchema),
@@ -49,16 +51,38 @@ const TrialLessonForm = ({ teacher, onSuccess }) => {
     },
   });
 
-  const onSubmit = async (formData) => {
-    const trialLesson = {
-      ...formData,
-      teacherId: teacher.id,
-      teacherName: `${teacher.name} ${teacher.surname}`,
-    };
+  const onSubmit = async ({ reason, fullName, email, phone }) => {
+    try {
+      if (!user?.uid) {
+        setError("root", {
+          type: "auth",
+          message: "Please log in before booking a trial lesson.",
+        });
 
-    console.log("Trial lesson:", trialLesson);
+        return;
+      }
 
-    onSuccess?.();
+      await createTrialLesson({
+        teacherId: String(teacher.id),
+        teacherName: `${teacher.name} ${teacher.surname}`,
+        teacherAvatar: teacher.avatar_url,
+        userId: user.uid,
+        reason,
+        fullName,
+        email,
+        phone,
+      });
+
+      reset();
+      onSuccess?.();
+    } catch (error) {
+      console.error("Trial lesson booking failed:", error);
+
+      setError("root", {
+        type: "server",
+        message: "Booking failed. Please try again.",
+      });
+    }
   };
 
   return (
@@ -181,6 +205,10 @@ const TrialLessonForm = ({ teacher, onSuccess }) => {
             )}
           </div>
         </div>
+
+        {errors.root && (
+          <p className={styles.formError}>{errors.root.message}</p>
+        )}
 
         <button
           className={styles.submitButton}

@@ -207,6 +207,16 @@
   border-color: #d64545;
 }
 
+.formError {
+  margin: 16px 0 0;
+
+  color: #d64545;
+
+  font-size: 13px;
+  line-height: 1.3;
+  text-align: center;
+}
+
 .errorMessage {
   margin: 0;
 

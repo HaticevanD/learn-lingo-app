@@ -3,7 +3,7 @@ import { signOut } from "firebase/auth";
 
 import { useAuth } from "../../hooks/useAuth";
 import { auth } from "../../services/firebase";
-
+import logo from "../../assets/logo.png";
 import styles from "./Header.module.css";
 
 function Header({ onLoginClick, onRegistrationClick }) {
@@ -24,7 +24,12 @@ function Header({ onLoginClick, onRegistrationClick }) {
     <header className={styles.header}>
       <div className={styles.container}>
         <NavLink to="/" className={styles.logo}>
-          <span className={styles.logoIcon} aria-hidden="true"></span>
+          <img
+            src={logo}
+            alt=""
+            className={styles.logoImage}
+            aria-hidden="true"
+          />
           <span>LearnLingo</span>
         </NavLink>
 
@@ -45,46 +50,43 @@ function Header({ onLoginClick, onRegistrationClick }) {
         </nav>
 
         <div className={styles.authActions}>
-          {!isAuthLoading && (
-            <>
-              {isAuthenticated ? (
-                <>
-                  <span className={styles.userName}>
-                    {user?.displayName || user?.email}
+          {!isAuthLoading &&
+            (isAuthenticated ? (
+              <>
+                <span className={styles.userName}>
+                  {user?.displayName || user?.email}
+                </span>
+
+                <button
+                  type="button"
+                  className={styles.logoutButton}
+                  onClick={handleLogout}
+                >
+                  Log out
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className={styles.loginButton}
+                  onClick={onLoginClick}
+                >
+                  <span className={styles.loginIcon} aria-hidden="true">
+                    ↳
                   </span>
+                  Log in
+                </button>
 
-                  <button
-                    type="button"
-                    className={styles.logoutButton}
-                    onClick={handleLogout}
-                  >
-                    Log out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    type="button"
-                    className={styles.loginButton}
-                    onClick={onLoginClick}
-                  >
-                    <span className={styles.loginIcon} aria-hidden="true">
-                      ↳
-                    </span>
-                    Log in
-                  </button>
-
-                  <button
-                    type="button"
-                    className={styles.registrationButton}
-                    onClick={onRegistrationClick}
-                  >
-                    Registration
-                  </button>
-                </>
-              )}
-            </>
-          )}
+                <button
+                  type="button"
+                  className={styles.registrationButton}
+                  onClick={onRegistrationClick}
+                >
+                  Registration
+                </button>
+              </>
+            ))}
         </div>
       </div>
     </header>

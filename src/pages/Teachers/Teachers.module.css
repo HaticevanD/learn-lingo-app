@@ -1,7 +1,6 @@
 .page {
   min-height: 100vh;
-  padding: 32px 0;
-
+  padding: 40px 0 80px; /* Daha iyi boşluk */
   background-color: var(--color-light-background);
 }
 
@@ -10,39 +9,55 @@
   margin: 0 auto;
 }
 
+/* Status ve Error Mesajları */
 .statusMessage,
 .errorMessage {
-  padding: 40px 16px;
-
+  padding: 48px 20px;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
   text-align: center;
+  border-radius: 16px;
 }
 
 .statusMessage {
   color: var(--color-secondary-text);
+  background-color: rgba(224, 163, 154, 0.08);
 }
 
 .errorMessage {
   color: #d92d20;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
 }
 
+/* ==================== RESPONSIVE ==================== */
 @media screen and (min-width: 768px) {
   .page {
-    padding: 48px 0;
+    padding: 56px 0 100px;
   }
 
   .container {
     width: calc(100% - 64px);
   }
+
+  .statusMessage,
+  .errorMessage {
+    padding: 56px 40px;
+    font-size: 17px;
+  }
 }
 
 @media screen and (min-width: 1158px) {
   .page {
-    padding: 64px 0;
+    padding: 72px 0 120px;
   }
 
   .container {
     width: min(calc(100% - 128px), var(--container-width));
+  }
+
+  .statusMessage,
+  .errorMessage {
+    padding: 64px 60px;
   }
 }

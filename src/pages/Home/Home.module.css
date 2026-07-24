@@ -1,5 +1,6 @@
 .home {
-  padding-bottom: 32px;
+  padding-top: 20px;
+  padding-bottom: 60px;
 }
 
 .container {
@@ -7,6 +8,7 @@
   margin: 0 auto;
 }
 
+/* ==================== HERO SECTION ==================== */
 .hero {
   display: grid;
   grid-template-columns: 1fr;
@@ -16,105 +18,95 @@
 
 .heroContent,
 .heroImageWrapper {
-  border-radius: 20px;
+  border-radius: 24px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
 }
 
 .heroImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 24px;
+  transition: transform 0.7s ease;
 }
 
 .heroImageWrapper {
   overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.heroImageWrapper:hover .heroImage {
+  transform: scale(1.05);
 }
 
 .heroContent {
-  display: flex;
-  flex-direction: column;
-  padding: 40px 24px;
-  overflow: hidden;
-  align-items: flex-start;
+  padding: 48px 28px;
   background-color: var(--color-light-background);
+  box-shadow: var(--shadow-md);
+  justify-content: center;
 }
 
 .title {
   margin-bottom: 24px;
-
   color: var(--color-text);
-  font-size: 36px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.72px;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -1px;
 }
 
 .highlight {
   position: relative;
   z-index: 1;
-
   display: inline-block;
-
   font-style: italic;
   font-weight: 400;
 }
 
 .highlight::before {
   content: "";
-
   position: absolute;
   z-index: -1;
-  right: -4px;
+  right: -6px;
   bottom: 6px;
-  left: -4px;
-  height: 40px;
-
+  left: -6px;
+  height: 42px;
   background-color: var(--color-accent);
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .description {
-  margin-bottom: 32px;
-
+  margin-bottom: 36px;
   color: var(--color-text);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
+  font-size: 15.5px;
+  line-height: 1.55;
 }
 
+/* Buton */
 .getStartedButton {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  min-height: 60px;
-  padding: 16px 24px;
-
-  color: var(--color-text, #121417);
-  background-color: var(--color-accent, #e0a39a);
-
+  min-height: 64px;
+  padding: 16px 32px;
+  color: var(--color-text);
+  background-color: var(--color-accent);
   border: none;
   border-radius: 12px;
-
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
-  line-height: 1.25;
-  text-align: center;
-  text-decoration: none;
-
   cursor: pointer;
-
-  transition:
-    background-color var(--transition, 200ms ease),
-    transform var(--transition, 200ms ease);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition);
+  align-self: flex-start;
 }
 
-.getStartedButton:hover,
-.getStartedButton:focus {
-  background-color: var(--color-accent-hover, #cf8f86);
-}
-
-.getStartedButton:active {
-  transform: scale(0.98);
+.getStartedButton:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .statistics {
@@ -153,59 +145,35 @@
   line-height: 1.29;
 }
 
+/* ==================== RESPONSIVE ==================== */
 @media screen and (min-width: 768px) {
-  .container {
-    width: calc(100% - 64px);
+  .home {
+    padding-top: 30px;
   }
 
   .hero {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
   }
 
   .heroContent,
   .heroImageWrapper {
-    min-height: 480px;
-    border-radius: 30px;
+    min-height: 520px; /* İkisi de aynı yükseklikte */
   }
 
   .heroContent {
-    justify-content: center;
-    padding: 40px;
+    padding: 52px;
   }
 
   .title {
-    font-size: 40px;
-  }
-
-  .description {
-    max-width: 420px;
-    margin-bottom: 40px;
-
-    font-size: 16px;
-  }
-
-  .getStartedButton {
-    width: auto;
-    min-width: 220px;
+    font-size: 46px;
   }
 
   .statistics {
     grid-template-columns: repeat(2, 1fr);
-    gap: 28px 40px;
-
-    margin-top: 24px;
-    padding: 32px;
-
-    border-radius: 30px;
-  }
-
-  .statisticItem {
-    justify-content: center;
-  }
-
-  .statisticValue {
-    font-size: 26px;
+    gap: 32px 48px;
+    padding: 40px;
+    margin-top: 40px;
   }
 }
 
@@ -215,49 +183,26 @@
   }
 
   .hero {
-    grid-template-columns: minmax(0, 1.1fr) minmax(400px, 0.9fr);
-    gap: 24px;
+    gap: 40px;
   }
 
   .heroContent,
   .heroImageWrapper {
-    min-height: 530px;
+    min-height: 560px;
   }
 
   .heroContent {
-    padding: 64px;
+    padding: 72px;
   }
 
   .title {
-    max-width: 548px;
-    margin-bottom: 32px;
-
-    font-size: 48px;
-    line-height: 1.16;
-    letter-spacing: -0.96px;
-  }
-
-  .description {
-    max-width: 470px;
-    margin-bottom: 64px;
-  }
-
-  .getStartedButton {
-    min-width: 267px;
-
-    font-size: 18px;
-    line-height: 1.56;
+    font-size: 54px;
+    letter-spacing: -1.5px;
   }
 
   .statistics {
     grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-
-    min-height: 116px;
-    padding: 36px 70px;
-  }
-
-  .statisticValue {
-    font-size: 28px;
+    padding: 44px 60px;
+    margin-top: 48px;
   }
 }

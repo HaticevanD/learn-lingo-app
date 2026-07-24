@@ -1,8 +1,10 @@
 .header {
+  position: relative;
+  z-index: 10;
   width: 100%;
   padding: 16px 0;
-
   background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
 }
 
 .container {
@@ -10,165 +12,165 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-
   width: calc(100% - 32px);
   margin: 0 auto;
 }
 
-.logo,
-.navLink {
-  color: var(--color-black);
-  text-decoration: none;
-}
-
+/* ==================== LOGO ==================== */
 .logo {
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
   gap: 8px;
-
   color: var(--color-black);
-
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 600;
   line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s ease;
 }
 
-.logoIcon {
+.logo:hover {
+  transform: scale(1.03);
+}
+
+.logoImage {
+  display: block;
   flex-shrink: 0;
-
-  width: 22px;
-  height: 22px;
-
-  background-color: var(--color-yellow);
-  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  margin-right: -6px;
+  object-fit: contain;
 }
 
+/* ==================== NAVIGATION ==================== */
 .navigation {
   display: none;
 }
 
+.navLink {
+  display: inline-block;
+  position: relative;
+  padding: 6px 0;
+  color: var(--color-black);
+  font-size: 14.5px; /* Biraz büyütüldü */
+  font-weight: 500;
+  line-height: 1.25;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navLink:hover,
+.navLink:focus-visible {
+  color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+/* Şık Alt Çizgi Efekti */
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2.5px;
+  background-color: var(--color-accent);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navLink:hover::after,
+.activeLink::after {
+  width: 100%;
+}
+
+.activeLink {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* ==================== AUTH BUTTONS ==================== */
 .authActions {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+.loginButton,
+.registrationButton,
+.logoutButton {
+  border: none;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
 .loginButton {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-
   padding: 0;
-
   color: var(--color-black);
   background-color: transparent;
-
-  border: none;
-
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.25;
-
-  cursor: pointer;
-
-  transition: opacity var(--transition);
+  font-size: 13px;
+  transition: all 0.25s ease;
 }
 
 .loginIcon {
-  color: var(--color-yellow);
-
+  color: var(--color-accent);
   font-size: 16px;
   line-height: 1;
 }
 
 .loginButton:hover,
 .loginButton:focus-visible {
-  opacity: 0.7;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
-.loginButton:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-}
-
-.registrationButton {
+.registrationButton,
+.logoutButton {
   padding: 9px 12px;
-
   color: var(--color-white);
   background-color: var(--color-black);
-
   border: 1px solid var(--color-black);
   border-radius: 10px;
-
   font-size: 11px;
-  font-weight: 700;
-  line-height: 1.25;
-
-  cursor: pointer;
-
-  transition:
-    color var(--transition),
-    background-color var(--transition);
+  transition: all 0.3s ease;
 }
 
 .registrationButton:hover,
-.registrationButton:focus-visible {
-  color: var(--color-black);
-  background-color: var(--color-white);
+.logoutButton:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
-.registrationButton:focus-visible {
+/* Focus Stil */
+.logo:focus-visible,
+.navLink:focus-visible,
+.loginButton:focus-visible,
+.registrationButton:focus-visible,
+.logoutButton:focus-visible {
   outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
+  outline-offset: 4px;
 }
 
 .userName {
   display: none;
-
   max-width: 160px;
   overflow: hidden;
-
   color: var(--color-secondary-text);
-
   font-size: 14px;
   font-weight: 500;
   line-height: 1.25;
-
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.logoutButton {
-  padding: 9px 12px;
-
-  color: var(--color-white);
-  background-color: var(--color-black);
-  border: 1px solid var(--color-black);
-  border-radius: 10px;
-
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.25;
-
-  cursor: pointer;
-
-  transition:
-    color var(--transition),
-    background-color var(--transition);
-}
-
-.logoutButton:hover,
-.logoutButton:focus-visible {
-  color: var(--color-black);
-  background-color: var(--color-white);
-}
-
-.logoutButton:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-}
-
+/* ==================== TABLET ==================== */
 @media screen and (min-width: 768px) {
   .header {
     padding: 20px 0;
@@ -176,57 +178,35 @@
 
   .container {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(
+        max-content,
+        1fr
+      );
+    align-items: center;
     gap: 24px;
-
     width: calc(100% - 64px);
   }
 
   .logo {
     justify-self: start;
-
-    font-size: 18px;
+    font-size: 19px;
   }
 
-  .logoIcon {
-    width: 24px;
-    height: 24px;
+  .logoImage {
+    width: 36px;
+    height: 36px;
   }
 
   .navigation {
     display: flex;
     align-items: center;
     justify-self: center;
-    gap: 20px;
+    gap: 28px;
   }
 
   .navLink {
-    padding: 6px 0;
-
-    color: var(--color-black);
-
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.25;
-
-    transition:
-      color var(--transition),
-      opacity var(--transition);
-  }
-
-  .navLink:hover,
-  .navLink:focus-visible {
-    opacity: 0.7;
-  }
-
-  .navLink:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 4px;
-  }
-
-  .activeLink {
-    color: var(--color-accent);
-    font-weight: 500;
+    font-size: 15.5px;
+    padding: 8px 4px;
   }
 
   .authActions {
@@ -237,57 +217,51 @@
   .loginButton {
     font-size: 14px;
   }
-
   .registrationButton {
     min-width: 126px;
+  }
+  .registrationButton,
+  .logoutButton {
     padding: 11px 20px;
-
     font-size: 13px;
   }
 
   .userName {
     display: block;
   }
-
-  .logoutButton {
-    padding: 11px 20px;
-
-    font-size: 13px;
-  }
 }
 
+/* ==================== DESKTOP ==================== */
 @media screen and (min-width: 1158px) {
+  .header {
+    z-index: 9;
+  }
+
   .container {
+    grid-template-columns: 1fr auto 1fr;
     width: min(calc(100% - 128px), var(--container-width));
   }
 
   .logo {
-    font-size: 20px;
+    font-size: 21px;
   }
 
   .navigation {
-    gap: 28px;
+    gap: 32px;
+  }
+
+  .navLink {
+    font-size: 16.5px;
+    padding: 8px 6px;
   }
 
   .loginButton {
     font-size: 16px;
   }
-
-  .registrationButton {
-    min-width: 166px;
-    padding: 14px 39px;
-
-    border-radius: 12px;
-
-    font-size: 16px;
-  }
-
+  .registrationButton,
   .logoutButton {
-    min-width: 120px;
     padding: 14px 24px;
-
     border-radius: 12px;
-
     font-size: 16px;
   }
 }

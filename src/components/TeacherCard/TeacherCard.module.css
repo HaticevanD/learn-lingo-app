@@ -333,6 +333,8 @@
 .bookButton:hover,
 .bookButton:focus-visible {
   background-color: var(--color-accent-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .bookButton:focus-visible {

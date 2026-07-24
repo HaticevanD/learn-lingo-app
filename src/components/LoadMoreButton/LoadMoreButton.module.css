@@ -26,6 +26,8 @@
 .button:hover,
 .button:focus {
   background-color: var(--color-accent-hover);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .button:active {

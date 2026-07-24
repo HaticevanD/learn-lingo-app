@@ -7,17 +7,11 @@ _(Replace with actual screenshot or GIF of the app)_
 
 ## ✨ Live Demo
 
-**[View Live Application →](https://your-deployed-url.vercel.app)**
+**[View Live Application →](https://learn-lingo-app-mu.vercel.app)**
 
 ## 📁 Source Code
 
-**[GitHub Repository →](https://github.com/yourusername/learn-lingo-app)**
-
-## 🎨 Design
-
-**[Figma Design File →](https://figma.com/your-design-link)**
-
----
+**[GitHub Repository →](https://github.com/HaticevanD/learn-lingo-app)**
 
 ## 📋 Project Overview
 
@@ -153,13 +147,12 @@ textsrc/
 ├── hooks/              # Custom hooks
 ├── pages/              # Page components
 ├── services/           # Firebase & API services
-├── styles/             # Global styles & CSS Modules
 ├── App.jsx
 └── main.jsx
 
 🛠 Installation & Setup
 1. Clone the repository
-Bashgit clone https://github.com/yourusername/learn-lingo-app.git
+Bashgit clone https://github.com/HaticevanD/learn-lingo-app.git
 cd learn-lingo-app
 2. Install dependencies
 Bashnpm install
@@ -194,7 +187,6 @@ Bashnpm run build
 Then drag the dist folder to your hosting provider.
 
 ✅ Technical Requirements Fulfilled
-
 ✅ Fully responsive & semantic UI
 ✅ Firebase Auth + Realtime Database
 ✅ Form validation & error handling
@@ -209,8 +201,7 @@ Then drag the dist folder to your hosting provider.
 👩‍💻 Author
 Hatice Sumruk-van Daalen
 Full Stack Developer
-<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&#x26;logo=linkedin&#x26;logoColor=white" alt="LinkedIn">
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&#x26;logo=github&#x26;logoColor=white" alt="GitHub">
+
 
 Made with ❤️ for language learners worldwide
 Feel free to star the project if you like it! ⭐

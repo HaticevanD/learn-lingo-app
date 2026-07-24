@@ -1,6 +1,6 @@
 .list {
   display: grid;
-  gap: 28px; /* Biraz daha ferah */
+  gap: 28px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -10,7 +10,6 @@
   min-width: 0;
 }
 
-/* Boş Durum Mesajı */
 .emptyMessage {
   padding: 60px 20px;
   color: var(--color-secondary-text);

@@ -112,6 +112,10 @@
   color: var(--color-accent-hover);
 }
 
+.ratingStar {
+  color: var(--color-rating);
+}
+
 .statistics {
   display: flex;
   flex-wrap: wrap;

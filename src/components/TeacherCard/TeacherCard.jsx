@@ -90,7 +90,9 @@ const TeacherCard = ({
           <li className={styles.statisticItem}>Lessons done: {lessons_done}</li>
 
           <li className={styles.statisticItem}>
-            <span aria-hidden="true">★</span>
+            <span className={styles.ratingStar} aria-hidden="true">
+              ★
+            </span>
             Rating: {rating}
           </li>
 
@@ -139,7 +141,12 @@ const TeacherCard = ({
                         </p>
 
                         <p className={styles.reviewRating}>
-                          <span aria-hidden="true">★</span>
+                          <span
+                            className={styles.ratingStar}
+                            aria-hidden="true"
+                          >
+                            ★
+                          </span>
                           {review.reviewer_rating}
                         </p>
                       </div>
